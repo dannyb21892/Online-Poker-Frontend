@@ -16,23 +16,27 @@ class App extends Component {
 
   loginSubmit = (e) => {
     e.preventDefault()
-    fetch("https://localhost:3000/api/v1/players",{
+    fetch("http://localhost:3000/api/v1/players",{
       method: "POST",
       headers: {
-       'Content-type':'application/json'
+       'Content-type':'application/json',
+       'Access-Control-Allow-Origin': '*'
      },
       body: JSON.stringify({username: this.state.username})
     })
     .then(response=>response.json())
     .then(json=>this.setState({
       loggedIn: json["logged_in"]
-    })
+    }))
   }
 
   render() {
+    let show = this.state.loggedIn ? "hello" :  <Login username={this.state.username} usernameChange={this.usernameChange} loginSubmit={this.loginSubmit} />
+
     return (
+
       <div className="App">
-        <Login username={this.state.username} usernameChange={this.usernameChange} loginSubmit={this.loginSubmit} />
+        {show}
       </div>
     );
   }
