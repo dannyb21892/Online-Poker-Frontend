@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
-import Login from "login"
+import Login from "./Login"
 import './App.css';
 
 class App extends Component {
   state = {
-    username: ""
+    username: "",
+    loggedIn: false
   }
   usernameChange = (e) => {
+    console.log(e.target.value)
     this.setState({
       username: e.target.value
     })
   }
 
   loginSubmit = (e) => {
-    console.log("submitting ", this.state.username)
+    e.preventDefault()
+    fetch("https://localhost:3000/api/v1/players",{
+      method: "POST",
+      headers: {
+       'Content-type':'application/json'
+     },
+      body: JSON.stringify({username: this.state.username})
+    })
   }
 
   render() {
     return (
       <div className="App">
-        <Login username={this.state.username} usernameChange={this.username} loginSubmit={this.loginSubmit} />
+        <Login username={this.state.username} usernameChange={this.usernameChange} loginSubmit={this.loginSubmit} />
       </div>
     );
   }
