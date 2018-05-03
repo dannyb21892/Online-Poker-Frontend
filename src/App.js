@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Login from "./Login"
+import Lobby from "./Lobby"
 import './App.css';
 
 class App extends Component {
   state = {
     username: "",
-    loggedIn: false
+    loggedIn: false,
+    inGame: false
   }
+
   usernameChange = (e) => {
     console.log(e.target.value)
     this.setState({
@@ -19,9 +22,8 @@ class App extends Component {
     fetch("http://localhost:3000/api/v1/players",{
       method: "POST",
       headers: {
-       'Content-type':'application/json',
-       'Access-Control-Allow-Origin': '*'
-     },
+       'Content-type':'application/json'
+      },
       body: JSON.stringify({username: this.state.username})
     })
     .then(response=>response.json())
@@ -31,10 +33,11 @@ class App extends Component {
   }
 
   render() {
-    let show = this.state.loggedIn ? "hello" :  <Login username={this.state.username} usernameChange={this.usernameChange} loginSubmit={this.loginSubmit} />
+    let show = this.state.loggedIn ?
+    <Lobby username={this.state.username} /> :
+    <Login username={this.state.username} usernameChange={this.usernameChange} loginSubmit={this.loginSubmit} />
 
     return (
-
       <div className="App">
         {show}
       </div>
