@@ -23,6 +23,10 @@ class App extends Component {
      },
       body: JSON.stringify({username: this.state.username})
     })
+    .then(response=>response.json())
+    .then(json=>this.setState({
+      loggedIn: json["logged_in"]
+    })
   }
 
   render() {
