@@ -6,7 +6,7 @@ class Lobby extends React.Component {
     super(props)
 
     this.state = {
-      openGames: ["hey"]
+      openGames: []
     }
   }
 
@@ -19,22 +19,24 @@ class Lobby extends React.Component {
       body: JSON.stringify({owner: this.props.username})
     })
     .then(response=>response.json())
-    .then(json=>console.log(json))//some code that tells App to stop rendering Lobby and render created game
+    .then(json=>this.setState({
+      openGames: [...this.state.openGames, json["newOpenGame"]]
+    }))//some code that tells App to stop rendering Lobby and render created game
   }
 
   componentDidMount(){
     fetch("http://localhost:3000/api/v1/matches")
     .then(response=>response.json())
     .then(json=>this.setState({
-      openGames: json
+      openGames: json["data"]
     }))
   }
 
   render() {
-    console.log(this.state.openGames)
+    // console.log(this.state.openGames)
     let games = this.state.openGames.map(game=>{
       return (
-        <li><Game username={this.props.username}/></li>
+        <li><Game owner={game.owner}/></li>
       )
     })
 
