@@ -36,7 +36,7 @@ class Lobby extends React.Component {
     // console.log(this.state.openGames)
     let games = this.state.openGames.map(game=>{
       return (
-        <li><Game owner={game.owner}/></li>
+        <li><Game owner={game.owner} joinGame={this.props.joinGame} id={game.match.id}/></li>
       )
     })
 

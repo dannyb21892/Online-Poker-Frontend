@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Login from "./Login"
 import Lobby from "./Lobby"
+import Gameplay from "./Gameplay"
 import './App.css';
 
 class App extends Component {
   state = {
     username: "",
     loggedIn: false,
-    inGame: false
+    inGame: false,
+    whichGame: {gameId: null, owner: null}
   }
 
   usernameChange = (e) => {
@@ -32,10 +34,24 @@ class App extends Component {
     }))
   }
 
+  joinGame = (game_id, owner) => {
+    this.setState({
+      inGame: true,
+      whichGame: {gameId: game_id, owner: owner}
+    })
+  }
+
   render() {
-    let show = this.state.loggedIn ?
-    <Lobby username={this.state.username} /> :
-    <Login username={this.state.username} usernameChange={this.usernameChange} loginSubmit={this.loginSubmit} />
+    let show
+    if (this.state.loggedIn) {
+      if (this.state.inGame) {
+        show = <Gameplay game={this.state.whichGame} player={this.state.username}/>
+      } else {
+        show = <Lobby username={this.state.username} joinGame={this.joinGame}/>
+      }
+    } else {
+      show = <Login username={this.state.username} usernameChange={this.usernameChange} loginSubmit={this.loginSubmit} />
+    }
 
     return (
       <div className="App">
