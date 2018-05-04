@@ -39,6 +39,20 @@ class Gameplay extends React.Component {
     }, 500)
   }
 
+  judgeGame = () => {
+    fetch(`http://localhost:3000/api/v1/matches/${this.props.game.gameId}`,{
+      method: "PATCH",
+      headers: {
+       'Content-type':'application/json'
+      },
+      body: JSON.stringify({
+        app_action: "judge_game"
+      })
+    })
+    .then(resp=>resp.json())
+    .then(json=>console.log(json))
+  }
+
   render () {
     let cards = []
     let leftstyle = 20
@@ -50,12 +64,16 @@ class Gameplay extends React.Component {
       }
     )
     let message = this.props.player === this.props.game.owner ? "your own" : (this.props.game.owner + "s")
+    let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
     return (
       <div className="Gameplay">
         <p>You have joined {message} game </p>
         <button onClick={this.startGame}>Start Game!</button> <br/>
         <div className="CardContainer" style={{width: 100 + "%", height: 500 + "px"}}>
           {cards}
+        </div>
+        <div className="judgeGameButton">
+          {judgeGameButton}
         </div>
       </div> //query backend for game updates with this.props.game.gameId
     )
