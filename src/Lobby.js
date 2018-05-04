@@ -6,6 +6,7 @@ class Lobby extends React.Component {
     super(props)
 
     this.state = {
+      interval: null,
       openGames: []
     }
   }
@@ -20,16 +21,20 @@ class Lobby extends React.Component {
     })
     .then(response=>response.json())
     .then(json=>this.setState({
-      openGames: [...this.state.openGames, json["newOpenGame"]]
-    }))//some code that tells App to stop rendering Lobby and render created game
+        openGames: [...this.state.openGames, json["newOpenGame"]]
+      }, () => this.props.joinGame(json["newOpenGame"]["match"]["id"], json["newOpenGame"]["owner"]))
+    )
+    //some code that tells App to stop rendering Lobby and render created game
   }
 
   componentDidMount(){
-    fetch("http://localhost:3000/api/v1/matches")
-    .then(response=>response.json())
-    .then(json=>this.setState({
-      openGames: json["data"]
+    this.state.interval = setInterval(() =>
+      fetch("http://localhost:3000/api/v1/matches")
+      .then(response=>response.json())
+      .then(json=>this.setState({
+        openGames: json["data"]
     }))
+    , 500)
   }
 
   render() {
@@ -50,6 +55,10 @@ class Lobby extends React.Component {
         <button onClick={this.newGame}>Open new game</button>
       </div>
     )
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.interval)
   }
 }
 
