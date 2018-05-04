@@ -35,8 +35,25 @@ class App extends Component {
   }
 
   joinGame = (game_id, owner) => {
+    fetch(`http://localhost:3000/api/v1/matches/${game_id}`,{
+      method: "PATCH",
+      headers: {
+       'Content-type':'application/json'
+      },
+      body: JSON.stringify({
+        app_action: "join_game",
+        data: {
+          username: this.state.username
+        }
+      })
+    })
+    .then(resp=>resp.json())
+    .then(json=>this.changeState(json, game_id, owner))
+  }
+
+  changeState = (json, game_id, owner) => {
     this.setState({
-      inGame: true,
+      inGame: json.response,
       whichGame: {gameId: game_id, owner: owner}
     })
   }
