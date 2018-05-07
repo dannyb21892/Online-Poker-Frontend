@@ -41,7 +41,6 @@ class GameResultss extends React.Component {
     return(
       <div className="GameResultss">
 
-        GameResults are here
         <h3>Results:</h3>
         {this.results()}
 

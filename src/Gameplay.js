@@ -79,7 +79,7 @@ class Gameplay extends React.Component {
 
         </div>
         <div className="judgeGameButton">
-        { this.state.judgeGame ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player}/> : null}      
+        { this.state.judgeGame ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player}/> : null}
         {judgeGameButton}
         </div>
       </div> //query backend for game updates with this.props.game.gameId
