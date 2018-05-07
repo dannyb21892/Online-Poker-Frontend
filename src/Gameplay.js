@@ -1,10 +1,12 @@
 import React from "react"
+import GameResultss from './GameResultss.js'
 
 class Gameplay extends React.Component {
   state = {
     started: false,
     interval: null,
-    playerCards: []
+    playerCards: [],
+    judgeGame: {}
   }
 
   startGame = () => {
@@ -32,7 +34,7 @@ class Gameplay extends React.Component {
       fetch(`http://localhost:3000/api/v1/matches/${this.props.game.gameId}`)
       .then(resp=>resp.json())
       .then(json=>{
-        console.log(json)
+        // console.log(json)                                                    //////////readd if need to see the continous console.logs for some data
         let cards = json.data.filter(d => d.player === this.props.player)
         this.stateChange("playerCards", cards)
       })
@@ -50,7 +52,8 @@ class Gameplay extends React.Component {
       })
     })
     .then(resp=>resp.json())
-    .then(json=>console.log(json))
+    // .then(json=>console.log(json))
+    .then(json=>this.setState({judgeGame: json}))
   }
 
   render () {
@@ -72,7 +75,11 @@ class Gameplay extends React.Component {
         <div className="CardContainer" style={{width: 100 + "%", height: 500 + "px"}}>
           {cards}
         </div>
+        <div>
+
+        </div>
         <div className="judgeGameButton">
+          <GameResultss judgeGame={this.state.judgeGame} username={this.props.player}/>
           {judgeGameButton}
         </div>
       </div> //query backend for game updates with this.props.game.gameId
