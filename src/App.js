@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Login from "./Login"
-// import Lobby from "./Lobby"
-// import Gameplay from "./Gameplay"
+import Lobby from "./Lobby"
+import Gameplay from "./Gameplay"
 import './App.css';
 
 class App extends Component {
@@ -32,60 +32,45 @@ class App extends Component {
     // .then(json=>console.log(json))
   }
 
-  // joinGame = (game_id, owner) => {                                              //start a game
-  //   console.log(game_id, owner)
-  //   fetch(`http://localhost:3000/api/v1/matches/${game_id}`,{
-  //     method: "PATCH",
-  //     headers: {
-  //      'Content-type':'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       app_action: "join_game",
-  //       data: {
-  //         username: this.state.username
-  //       }
-  //     })
-  //   })
-  //   .then(resp=>resp.json())
-  //   .then(json=>this.changeState(json, game_id, owner))
-  // }
-
-  // changeState = (json, game_id, owner) => {
-  //   this.setState({
-  //     inGame: json.response,
-  //     whichGame: {gameId: game_id, owner: owner}
-  //   })
-  // }
-
-  newGame = () => {
-    fetch("http://localhost:3000/api/v1/matches",{
-      method: "POST",
+  joinGame = (game_id, owner) => {                                              //start a game
+    console.log(game_id, owner)
+    fetch(`http://localhost:3000/api/v1/matches/${game_id}`,{
+      method: "PATCH",
       headers: {
        'Content-type':'application/json'
       },
-      body: JSON.stringify({owner: this.state.username})
+      body: JSON.stringify({
+        app_action: "join_game",
+        data: {
+          username: this.state.username
+        }
+      })
     })
-    .then(response=>response.json())
-    .then(json=>console.log(json))
-    // .then(json=>this.setState({
-    //     openGames: [...this.state.openGames, json["newOpenGame"]]
-    //   }, () => this.props.joinGame(json["newOpenGame"]["match"]["id"], json["newOpenGame"]["owner"]))
-    // )
-    //some code that tells App to stop rendering Lobby and render created game
-  }//newGame
+    .then(resp=>resp.json())
+    .then(json=>this.changeState(json, game_id, owner))
+  }
+
+  changeState = (json, game_id, owner) => {
+    this.setState({
+      inGame: json.response,
+      whichGame: {gameId: game_id, owner: owner}
+    },()=>{console.log("inside changeState");console.log(this.state);})
+  }
+
+
 
   render() {
     let show
     if (this.state.loggedIn) {
-      show = <div>logged in</div>
+      // show = <div>logged in</div>
       //START GAME SOMEHOW
-      this.newGame()
 
-    //   if (this.state.inGame) {
-    //     show = <Gameplay game={this.state.whichGame} player={this.state.username}/>
-    //   } else {
-    //     show = <Lobby username={this.state.username} joinGame={this.joinGame}/>
-      // }
+      if (this.state.inGame) {
+        show = <Gameplay game={this.state.whichGame} player={this.state.username}/>
+      } else {
+        // show = <Lobby username={this.state.username} joinGame={this.joinGame}/>
+        show = <Lobby username={this.state.username} joinGame={this.joinGame}/>  //remove joinGame
+      }
 
     } else {
       show = <Login username={this.state.username} setUsername={this.setUsername} loginSubmit={this.loginSubmit} />

@@ -1,10 +1,10 @@
 import React from "react"
 class GameResultss extends React.Component {
 
-  didWin = ()=>{
-    let win= this.props.judgeGame.winner[this.props.username]
-    // console.log("winner? " + win);
-  }
+  // didWin = ()=>{
+  //   let win= this.props.judgeGame.winner[this.props.username]
+  //   // console.log("winner? " + win);
+  // }
 
   componentWillMount(){
     this.props.clear()

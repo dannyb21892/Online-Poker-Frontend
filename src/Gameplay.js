@@ -33,7 +33,7 @@ class Gameplay extends React.Component {
   // }
 
   componentDidMount() {
-    this.state.interval = setInterval(()=>{
+    this.setState({interval:  setInterval(()=>{
       fetch(`http://localhost:3000/api/v1/matches/${this.props.game.gameId}`)
       .then(resp=>resp.json())
       .then(json=>{
@@ -46,7 +46,7 @@ class Gameplay extends React.Component {
           judgeGame: json.judgement
         })
       })
-    }, 500)
+    }, 500)})
   }
 
   judgeGame = () => {
