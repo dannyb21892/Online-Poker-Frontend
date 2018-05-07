@@ -37,6 +37,10 @@ class Lobby extends React.Component {
     , 500)
   }
 
+  componentWillUnmount(){
+    clearInterval(this.state.interval)
+  }
+
   render() {
     // console.log(this.state.openGames)
     let games = this.state.openGames.map(game=>{

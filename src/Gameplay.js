@@ -1,5 +1,6 @@
 import React from "react"
 import GameResultss from './GameResultss.js'
+import Player from './Player.js'
 
 class Gameplay extends React.Component {
   state = {
@@ -7,7 +8,8 @@ class Gameplay extends React.Component {
     judged: false,
     interval: null,
     playerCards: [],
-    judgeGame: false
+    judgeGame: false,
+    playerInfo: this.props.playerInfo
   }
 
   startGame = () => {
@@ -60,20 +62,34 @@ class Gameplay extends React.Component {
       })
     })
     .then(resp=>resp.json())
-    // .then(json=>console.log(json))
-    .then(json=>this.setState({
-      judgeGame: json.judgement,
-      judged: json.judged,
-      started: json.active
-    }))
+    .then(json=>{
+      // let newInfo
+      // if (json.judgement.winner[this.props.player]) {
+      //   newInfo = {
+      //     ...this.state.playerInfo,
+      //     money: json.money
+      //   }
+      // } else {
+      //   newInfo = this.state.playerInfo
+      // }
+      this.setState({
+        judgeGame: json.judgement,
+        judged: json.judged,
+        started: json.active,
+        // playerInfo: newInfo
+      })
+    })
   }
 
   clearStateInterval = () => {
     clearInterval(this.state.interval)
   }
 
+  componentWillUnmount(){
+    this.clearStateInterval()
+  }
+
   render () {
-    console.log(this.state.judged, this.state.judgeGame)
     let results = (this.state.judged && this.state.judgeGame) ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player} clear={this.clearStateInterval}/> : null
     let cards = []
     let leftstyle = 20
@@ -85,7 +101,8 @@ class Gameplay extends React.Component {
       }
     )
     let message = this.props.player === this.props.game.owner ? "your own" : (this.props.game.owner + "s")
-    let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
+    let judgeGameButton = (this.state.playerCards.length === 5 && !this.state.judged) ? <button onClick={this.judgeGame} >Judge Game</button> : null
+    let backToLobby = results ? <button onClick={this.props.backToLobby}>Back to Lobby</button> : null
     return (
       <div className="Gameplay">
         <p>You have joined {message} game </p>
@@ -94,11 +111,12 @@ class Gameplay extends React.Component {
           {cards}
         </div>
         <div>
-
+          <Player player={this.props.player} playerInfo={this.state.playerInfo} started={this.state.started} game={this.props.game}/>
         </div>
         <div className="judgeGameButton">
         { results }
         {judgeGameButton}
+        { backToLobby }
         </div>
       </div> //query backend for game updates with this.props.game.gameId
     )

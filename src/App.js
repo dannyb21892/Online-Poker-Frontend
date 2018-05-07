@@ -8,12 +8,12 @@ class App extends Component {
   state = {
     username: "",
     loggedIn: false,
+    playerInfo: null,
     inGame: false,
     whichGame: {gameId: null, owner: null}
   }
 
   usernameChange = (e) => {
-    console.log(e.target.value)
     this.setState({
       username: e.target.value
     })
@@ -30,12 +30,12 @@ class App extends Component {
     })
     .then(response=>response.json())
     .then(json=>this.setState({
-      loggedIn: json["logged_in"]
+      loggedIn: json["logged_in"],
+      playerInfo: json["player_info"]
     }))
   }
 
   joinGame = (game_id, owner) => {
-    console.log(game_id, owner)
     fetch(`http://localhost:3000/api/v1/matches/${game_id}`,{
       method: "PATCH",
       headers: {
@@ -49,7 +49,14 @@ class App extends Component {
       })
     })
     .then(resp=>resp.json())
-    .then(json=>this.changeState(json, game_id, owner))
+    .then(json=>this.setState({
+      inGame: json.response,
+      whichGame: {gameId: game_id, owner: owner},
+      playerInfo: {
+        ...this.state.playerInfo,
+        money: json.money
+      }
+    }))
   }
 
   changeState = (json, game_id, owner) => {
@@ -59,11 +66,19 @@ class App extends Component {
     })
   }
 
+  backToLobby = () => {
+    this.setState({
+      inGame: false,
+      whichGame: {gameId: null, owner: null}
+    })
+  }
+
+
   render() {
     let show
     if (this.state.loggedIn) {
       if (this.state.inGame) {
-        show = <Gameplay game={this.state.whichGame} player={this.state.username}/>
+        show = <Gameplay backToLobby={this.backToLobby} game={this.state.whichGame} player={this.state.username} playerInfo={this.state.playerInfo}/>
       } else {
         show = <Lobby username={this.state.username} joinGame={this.joinGame}/>
       }
