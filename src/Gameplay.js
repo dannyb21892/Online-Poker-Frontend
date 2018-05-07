@@ -79,7 +79,7 @@ class Gameplay extends React.Component {
     let leftstyle = 20
     this.state.playerCards.forEach((card,index) => {
         cards.push(<div className="playerCard" key={index}>
-          <img src={card.card.img_link} alt={card.card.code} style={{position: "absolute", left: leftstyle + "%"}}/>
+          <img src={card.card.img_link} alt={card.card.code} style={{position: "absolute", left: leftstyle + "%", width: 200, height: 200}}/>
         </div>)
         leftstyle = leftstyle + 12
       }
@@ -90,7 +90,7 @@ class Gameplay extends React.Component {
       <div className="Gameplay">
         <p>You have joined {message} game </p>
         <button onClick={this.startGame}>Start Game!</button> <br/>
-        <div className="CardContainer" style={{width: 100 + "%", height: 500 + "px"}}>
+        <div className="CardContainer" style={{width: 100 + "%", height: 200 + "px"}}>
           {cards}
         </div>
         <div>
