@@ -77,8 +77,8 @@ class Gameplay extends React.Component {
     let results = (this.state.judged && this.state.judgeGame) ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player} clear={this.clearStateInterval}/> : null
     let cards = []
     let leftstyle = 20
-    this.state.playerCards.forEach(card => {
-        cards.push(<div className="playerCard">
+    this.state.playerCards.forEach((card,index) => {
+        cards.push(<div className="playerCard" key={index}>
           <img src={card.card.img_link} alt={card.card.code} style={{position: "absolute", left: leftstyle + "%"}}/>
         </div>)
         leftstyle = leftstyle + 12
