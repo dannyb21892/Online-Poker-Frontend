@@ -4,6 +4,7 @@ import GameResultss from './GameResultss.js'
 class Gameplay extends React.Component {
   state = {
     started: false,
+    judged: false,
     interval: null,
     playerCards: [],
     judgeGame: false
@@ -20,14 +21,16 @@ class Gameplay extends React.Component {
       })
     })
     .then(resp=>resp.json())
-    .then(json=>this.stateChange("started", json.response))
+    .then(json=>this.setState({
+      started: json.response
+    }))
   }
 
-  stateChange = (key, val) => {
-    this.setState({
-      [key]: val
-    })
-  }
+  // stateChange = (key, val) => {
+  //   this.setState({
+  //     [key]: val
+  //   })
+  // }
 
   componentDidMount() {
     this.state.interval = setInterval(()=>{
@@ -36,7 +39,12 @@ class Gameplay extends React.Component {
       .then(json=>{
         // console.log(json)                                                    //////////readd if need to see the continous console.logs for some data
         let cards = json.data.filter(d => d.player === this.props.player)
-        this.stateChange("playerCards", cards)
+        this.setState({
+          playerCards: cards,
+          started: json.active,
+          judged: json.judged,
+          judgeGame: json.judgement
+        })
       })
     }, 500)
   }
@@ -53,10 +61,23 @@ class Gameplay extends React.Component {
     })
     .then(resp=>resp.json())
     // .then(json=>console.log(json))
-    .then(json=>this.setState({judgeGame: json}))
+    .then(json=>this.setState({
+      judgeGame: json.judgement,
+      judged: json.judged,
+      started: json.active
+    }))
+  }
+
+  clearStateInterval = () => {
+    clearInterval(this.state.interval)
   }
 
   render () {
+    // if (this.state.judged && !this.state.judgeGame) {
+    //   this.judgeGame()
+    // }
+    console.log(this.state.judged, this.state.judgeGame)
+    let results = (this.state.judged && this.state.judgeGame) ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player} clear={this.clearStateInterval}/> : null
     let cards = []
     let leftstyle = 20
     this.state.playerCards.forEach(card => {
@@ -79,7 +100,7 @@ class Gameplay extends React.Component {
 
         </div>
         <div className="judgeGameButton">
-        { this.state.judgeGame ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player}/> : null}
+        { results }
         {judgeGameButton}
         </div>
       </div> //query backend for game updates with this.props.game.gameId

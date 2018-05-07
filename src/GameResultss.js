@@ -3,7 +3,11 @@ class GameResultss extends React.Component {
 
   didWin = ()=>{
     let win= this.props.judgeGame.winner[this.props.username]
-    console.log("winner? " + win);
+    // console.log("winner? " + win);
+  }
+
+  componentWillMount(){
+    this.props.clear()
   }
 
   results=()=>{
@@ -12,9 +16,9 @@ class GameResultss extends React.Component {
     // )
     let players = Object.keys(this.props.judgeGame.winner)
     // return players
-    console.log(players);
+    // console.log(players);
     let winner = null
-    if(this.props.judgeGame[players[0]]){winner = players[0]}
+    if(this.props.judgeGame.winner[players[0]]){winner = players[0]}
     else{winner = players[1]}
     let didIWin = null
     if(this.props.username === winner){didIWin="YOU WON!!!!!!!!"}
@@ -36,7 +40,7 @@ class GameResultss extends React.Component {
 
   render(){
     // console.log("judgeGame");
-    console.log(this.props.judgeGame);
+    // console.log(this.props.judgeGame);
     // console.log("My username is :" +this.props.username );
     return(
       <div className="GameResultss">
