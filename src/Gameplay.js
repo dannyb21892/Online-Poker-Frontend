@@ -73,9 +73,6 @@ class Gameplay extends React.Component {
   }
 
   render () {
-    // if (this.state.judged && !this.state.judgeGame) {
-    //   this.judgeGame()
-    // }
     console.log(this.state.judged, this.state.judgeGame)
     let results = (this.state.judged && this.state.judgeGame) ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player} clear={this.clearStateInterval}/> : null
     let cards = []
