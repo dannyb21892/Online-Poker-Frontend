@@ -6,7 +6,7 @@ class Gameplay extends React.Component {
     started: false,
     interval: null,
     playerCards: [],
-    judgeGame: {}
+    judgeGame: false
   }
 
   startGame = () => {
@@ -79,8 +79,8 @@ class Gameplay extends React.Component {
 
         </div>
         <div className="judgeGameButton">
-          <GameResultss judgeGame={this.state.judgeGame} username={this.props.player}/>
-          {judgeGameButton}
+        { this.state.judgeGame ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player}/> : null}      
+        {judgeGameButton}
         </div>
       </div> //query backend for game updates with this.props.game.gameId
     )
