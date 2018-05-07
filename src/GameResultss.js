@@ -16,15 +16,23 @@ class GameResultss extends React.Component {
     let winner = null
     if(this.props.judgeGame[players[0]]){winner = players[0]}
     else{winner = players[1]}
+    let didIWin = null
+    if(this.props.username === winner){didIWin="YOU WON!!!!!!!!"}
+    else {didIWin = "YOU LOST!!!!!!!!"}
+
     return (
       <div>
-      <li>Players are {players}</li>
-      <li>WINNER IS {winner}!!!!!!</li>
-      <li>{players[0]} has a hand of {this.props.judgeGame.ranks[players[0]]} </li>
-      <li>{players[1]} has a hand of {this.props.judgeGame.ranks[players[1]]}</li>
+        <h1>{didIWin}</h1>
+        <p>{players[0]} has a hand of {this.props.judgeGame.ranks[players[0]]} </p>
+        <p>{players[1]} has a hand of {this.props.judgeGame.ranks[players[1]]}</p>
+
       </div>
     )
   }
+  //
+  // <li>Players are {players}</li>
+  // <li>WINNER IS {winner}!!!!!!</li>
+
 
   render(){
     // console.log("judgeGame");
