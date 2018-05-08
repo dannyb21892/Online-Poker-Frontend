@@ -1,22 +1,12 @@
 import React from "react"
 class GameResultss extends React.Component {
 
-  didWin = ()=>{
-    let win= this.props.judgeGame.winner[this.props.username]
-    // console.log("winner? " + win);
-  }
-
   componentWillMount(){
     this.props.clear()
   }
 
   results=()=>{
-    // let results = this.props.judgeGame.winner.map((k,v)=>
-    //   <li>{k} has a {v}</li>
-    // )
     let players = Object.keys(this.props.judgeGame.winner)
-    // return players
-    // console.log(players);
     let winner = null
     if(this.props.judgeGame.winner[players[0]]){winner = players[0]}
     else{winner = players[1]}
@@ -26,10 +16,9 @@ class GameResultss extends React.Component {
 
     return (
       <div>
-        <h1>{didIWin}</h1>
-        <p>{players[0]} has a hand of {this.props.judgeGame.ranks[players[0]]} </p>
-        <p>{players[1]} has a hand of {this.props.judgeGame.ranks[players[1]]}</p>
-
+        <h1 style={{color: "white"}}>{didIWin}</h1>
+        <p style={{color: "white"}}>{players[0]} has a hand of {this.props.judgeGame.ranks[players[0]]}</p>
+        <p style={{color: "white"}}>{players[1]} has a hand of {this.props.judgeGame.ranks[players[1]]}</p>
       </div>
     )
   }
@@ -44,10 +33,8 @@ class GameResultss extends React.Component {
     // console.log("My username is :" +this.props.username );
     return(
       <div className="GameResultss">
-
-        <h3>Results:</h3>
+        <h3 style={{color: "white"}}>Results:</h3>
         {this.results()}
-
       </div>
     )//return
   }//render
