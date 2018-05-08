@@ -1,5 +1,6 @@
 import React from "react"
 import GameResultss from './GameResultss.js'
+import StartGame from './StartGame'
 
 class Gameplay extends React.Component {
   state = {
@@ -96,8 +97,9 @@ class Gameplay extends React.Component {
     // let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
     return (
       <div className="Gameplay">
+        <StartGame startGame={this.startGame}/>
         <p>You have joined {message} game </p>
-        <button onClick={this.startGame}>Start Game!</button> <br/>
+
         <div className="CardContainer" style={{width: 100 + "%", height: 200 + "px"}}>
           {cards}
         </div>
