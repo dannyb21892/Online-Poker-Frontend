@@ -83,7 +83,7 @@ class Gameplay extends React.Component {
 
   render () {
     console.log(this.state.judged, this.state.judgeGame)
-    let results = (this.state.judged && this.state.judgeGame) ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player} clear={this.clearStateInterval}/> : null
+    let results = (this.state.judged && this.state.judgeGame) ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player} clear={this.clearStateInterval} playAgain={this.props.playAgain}/> : null
     let cards = []
     let leftstyle = 20
     this.state.playerCards.forEach((card,index) => {

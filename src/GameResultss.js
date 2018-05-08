@@ -49,7 +49,7 @@ class GameResultss extends React.Component {
 
         <h3>Results:</h3>
         {this.results()}
-
+        <button onClick={this.props.playAgain}>Play Again?</button>
       </div>
     )//return
   }//render

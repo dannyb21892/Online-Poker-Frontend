@@ -29,7 +29,7 @@ class App extends Component {
     })
     .then(response=>response.json())
     .then(json=>this.setState({      loggedIn: json["logged_in"]    })
-      ,()=>{{console.log("insidecallback");this.newGame}}
+      // ,()=>{{console.log("insidecallback");this.newGame}}
     )
     // .then(json=>console.log(json))
   }
@@ -78,7 +78,11 @@ newGame = () => {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+playAgain = ()=>{
+  console.log("Play again");
+}
 
+////////////////////////////////////////////////////////////////////////////////
 
   render() {
     let show
@@ -92,7 +96,7 @@ newGame = () => {
 ////////////////
 //uncomment below if bypass doesnt work
       if (this.state.inGame) {
-        show = <Gameplay game={this.state.whichGame} player={this.state.username}/>
+        show = <Gameplay game={this.state.whichGame} player={this.state.username} playAgain={this.playAgain}/>
       } else {
         // show = <Lobby username={this.state.username} joinGame={this.joinGame}/>
         // show = <Lobby username={this.state.username} joinGame={this.joinGame}/>  //remove joinGame
