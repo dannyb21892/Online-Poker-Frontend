@@ -9,7 +9,8 @@ class Gameplay extends React.Component {
     interval: null,
     playerCards: [],
     judgeGame: false,
-    playerInfo: this.props.playerInfo
+    playerInfo: this.props.playerInfo,
+    whoseturn: 0
   }
 
   startGame = () => {
@@ -39,13 +40,14 @@ class Gameplay extends React.Component {
       fetch(`http://localhost:3000/api/v1/matches/${this.props.game.gameId}`)
       .then(resp=>resp.json())
       .then(json=>{
-        // console.log(json)                                                    //////////readd if need to see the continous console.logs for some data
+        console.log(json)                                                    //////////readd if need to see the continous console.logs for some data
         let cards = json.data.filter(d => d.player === this.props.player)
         this.setState({
           playerCards: cards,
           started: json.active,
           judged: json.judged,
-          judgeGame: json.judgement
+          judgeGame: json.judgement,
+          whoseturn: json.whoseturn_id
         })
       })
     }, 500)
@@ -63,20 +65,10 @@ class Gameplay extends React.Component {
     })
     .then(resp=>resp.json())
     .then(json=>{
-      // let newInfo
-      // if (json.judgement.winner[this.props.player]) {
-      //   newInfo = {
-      //     ...this.state.playerInfo,
-      //     money: json.money
-      //   }
-      // } else {
-      //   newInfo = this.state.playerInfo
-      // }
       this.setState({
         judgeGame: json.judgement,
         judged: json.judged,
         started: json.active,
-        // playerInfo: newInfo
       })
     })
   }
@@ -111,7 +103,7 @@ class Gameplay extends React.Component {
           {cards}
         </div>
         <div>
-          <Player player={this.props.player} playerInfo={this.state.playerInfo} started={this.state.started} game={this.props.game}/>
+          <Player player={this.props.player} playerInfo={this.state.playerInfo} started={this.state.started} game={this.props.game} whoseturn={this.state.whoseturn}/>
         </div>
         <div className="judgeGameButton">
         { results }
