@@ -1,4 +1,5 @@
 import React from "react"
+import MrrobotoCards from './MrrobotoCards'
 class GameResultss extends React.Component {
 
   // didWin = ()=>{
@@ -26,6 +27,7 @@ class GameResultss extends React.Component {
 
     return (
       <div>
+        <MrrobotoCards judgeGame={this.props.judgeGame}/>
         <h1>{didIWin}</h1>
         <p>{players[0]} has a hand of {this.props.judgeGame.ranks[players[0]]} </p>
         <p>{players[1]} has a hand of {this.props.judgeGame.ranks[players[1]]}</p>
