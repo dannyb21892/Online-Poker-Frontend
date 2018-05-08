@@ -97,7 +97,7 @@ class Gameplay extends React.Component {
     // let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
     return (
       <div className="Gameplay">
-        <StartGame startGame={this.startGame}/>
+        <StartGame startGame={this.startGame} judgeGame={this.state.judgeGame} started={this.state.started}/>
 
         <div className="CardContainer" style={{width: 100 + "%", height: 200 + "px"}}>
           {cards}
