@@ -8,6 +8,7 @@ class StartGame extends React.Component {
 
     return(
       <div>
+
         {button}
       </div>
     )
