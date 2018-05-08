@@ -47,7 +47,8 @@ class Gameplay extends React.Component {
           started: json.active,
           judged: json.judged,
           judgeGame: json.judgement,
-          whoseturn: json.whoseturn_id
+          whoseturn: json.whoseturn_id,
+          maxbet: json.maxbet
         })
       })
     }, 500)
@@ -93,7 +94,7 @@ class Gameplay extends React.Component {
       }
     )
     let message = this.props.player === this.props.game.owner ? "your own" : (this.props.game.owner + "s")
-    let judgeGameButton = (this.state.playerCards.length === 5 && !this.state.judged) ? <button onClick={this.judgeGame} >Judge Game</button> : null
+    // let judgeGameButton = (this.state.playerCards.length === 5 && !this.state.judged) ? <button onClick={this.judgeGame} >Judge Game</button> : null
     let backToLobby = results ? <button onClick={this.props.backToLobby}>Back to Lobby</button> : null
     return (
       <div className="Gameplay">
@@ -102,12 +103,11 @@ class Gameplay extends React.Component {
         <div className="CardContainer" style={{width: 100 + "%", height: 500 + "px"}}>
           {cards}
         </div>
+        { results }
         <div>
-          <Player player={this.props.player} playerInfo={this.state.playerInfo} started={this.state.started} game={this.props.game} whoseturn={this.state.whoseturn}/>
+          <Player player={this.props.player} playerInfo={this.state.playerInfo} started={this.state.started} game={this.props.game} whoseturn={this.state.whoseturn} maxbet={this.state.maxbet}/>
         </div>
         <div className="judgeGameButton">
-        { results }
-        {judgeGameButton}
         { backToLobby }
         </div>
       </div> //query backend for game updates with this.props.game.gameId
