@@ -16,7 +16,7 @@ class MrrobotoCards extends React.Component {
 
     return(
       <div>
-        <h2>Mr Roboto deck</h2>
+        <h4>Mr Roboto deck</h4>
         <div className="CardContainer" style={{width: 100 + "%", height: 200 + "px"}}>
           {cards}
         </div>

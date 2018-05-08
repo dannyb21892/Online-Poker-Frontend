@@ -29,6 +29,7 @@ class GameResultss extends React.Component {
       <div>
         <MrrobotoCards judgeGame={this.props.judgeGame}/>
         <h1>{didIWin}</h1>
+        <h3>You now have ${this.props.judgeGame.money} dollars!!!!</h3>
         <p>{players[0]} has a hand of {this.props.judgeGame.ranks[players[0]]} </p>
         <p>{players[1]} has a hand of {this.props.judgeGame.ranks[players[1]]}</p>
 
@@ -46,8 +47,6 @@ class GameResultss extends React.Component {
     // console.log("My username is :" +this.props.username );
     return(
       <div className="GameResultss">
-
-        <h3>Results:</h3>
         {this.results()}
         <button onClick={this.props.playAgain}>Play Again?</button>
       </div>
