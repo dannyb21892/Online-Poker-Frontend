@@ -1,5 +1,28 @@
-.App {
+body{
+}
+
+#App {
+  background-image: url("../src/casinologin.jpg");
+  background-size: 2880px 1620px;
+  background-attachment: fixed;
+
   text-align: center;
+  top: 0%;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+#inGameApp {
+  background-image: url("../src/felt.jpg");
+  background-size: 1920px 1080px;
+  background-attachment: fixed;
+
+  text-align: center;
+  top: 0%;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 .App-logo {
@@ -25,4 +48,8 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.login {
+  margin: auto;
 }

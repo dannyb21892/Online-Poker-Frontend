@@ -47,45 +47,88 @@ class Player extends React.Component {
   }
 
   render () {
-    let yourturn = this.props.whoseturn == this.props.playerInfo.id
+    let yourturn = this.props.whoseturn === this.props.playerInfo.id
     let message = (!yourturn && this.props.started) ? <span>It is not yet your turn to bet</span> : null
     let disabled = (this.state.bet || !this.props.started) || !yourturn
     let maxInput = this.props.maxbet > 0 ? this.props.maxbet : this.props.money
     if (maxInput > this.props.money) {maxInput = this.props.money}
     this.fixSelect()
     return (
-      <div>
-        <p>Username: {this.state.username}</p>
-        <p>Bank: ${this.state.money}</p>
-        {message}
-        <form onSubmit={this.bet}>
-          Bet: <input type="number"
-                  min={this.props.maxbet}
-                  max={maxInput}
-                  step="1"
-                  disabled={disabled}
-                  value={this.state.selectedBet}
-                  onChange={(e)=>this.setState({selectedBet: e.target.value})}></input><br />
-          <select value={this.state.turnType} onChange={(e)=>{
-              let newBet = this.state.selectedBet
-              if (e.target.value === "call") {
-                newBet = this.props.maxbet
-              }
-              this.setState({
-                turnType: e.target.value,
-                selectedBet: newBet
-              })
-            }
-          }>
-            <option value="bet" disabled={this.props.maxbet > 0}>Bet</option>
-            <option value="call" disabled={this.props.maxbet === 0}>Call</option>
-            <option value="fold">Fold</option>
-          </select>
-          <input type="submit" disabled={disabled}></input>
-        </form>
+      <div className="ui cards">
+        <div className="card">
+          <div className="content">
+            <div className="header">
+              Username: {this.state.username}<br/>Bank: ${this.state.money}
+            </div>
+            <div className="description">
+            {message}
+              <form onSubmit={this.bet}>
+                Bet: <input type="number"
+                        min={this.props.maxbet}
+                        max={maxInput}
+                        step="1"
+                        disabled={disabled}
+                        value={this.state.selectedBet}
+                        onChange={(e)=>this.setState({selectedBet: e.target.value})}></input><br />
+                <select value={this.state.turnType} onChange={(e)=>{
+                    let newBet = this.state.selectedBet
+                    if (e.target.value === "call") {
+                      newBet = this.props.maxbet
+                    }
+                    this.setState({
+                      turnType: e.target.value,
+                      selectedBet: newBet
+                    })
+                  }
+                }>
+                  <option value="bet" disabled={this.props.maxbet > 0}>Bet</option>
+                  <option value="call" disabled={this.props.maxbet === 0}>Call</option>
+                  <option value="fold">Fold</option>
+                </select>
+                <input type="submit" disabled={disabled}></input>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
 }
 
 export default Player
+
+// <div>
+//   <p>Username: {this.state.username}</p>
+//   <p>Bank: ${this.state.money}</p>
+//   {message}
+//   <form onSubmit={this.bet}>
+//     Bet: <input type="number"
+//             min={this.props.maxbet}
+//             max={maxInput}
+//             step="1"
+//             disabled={disabled}
+//             value={this.state.selectedBet}
+//             onChange={(e)=>this.setState({selectedBet: e.target.value})}></input><br />
+//     <select value={this.state.turnType} onChange={(e)=>{
+//         let newBet = this.state.selectedBet
+//         if (e.target.value === "call") {
+//           newBet = this.props.maxbet
+//         }
+//         this.setState({
+//           turnType: e.target.value,
+//           selectedBet: newBet
+//         })
+//       }
+//     }>
+//       <option value="bet" disabled={this.props.maxbet > 0}>Bet</option>
+//       <option value="call" disabled={this.props.maxbet === 0}>Call</option>
+//       <option value="fold">Fold</option>
+//     </select>
+//     <input type="submit" disabled={disabled}></input>
+//   </form>
+// </div>
+//
+// <div class="ui bottom attached button"  onClick={() => props.joinGame(props.id, props.owner)}>
+// <i class="add icon"></i>
+// Join this game
+// </div>

@@ -87,8 +87,8 @@ class Gameplay extends React.Component {
     let cards = []
     let leftstyle = 20
     this.state.playerCards.forEach(card => {
-        cards.push(<div className="playerCard">
-          <img src={card.card.img_link} alt={card.card.code} style={{position: "absolute", left: leftstyle + "%"}}/>
+        cards.push(<div className="playerCard" style={{position: "absolute", width: "100%", height: "250px"}}>
+          <img src={card.card.img_link} alt={card.card.code} style={{position: "absolute", left: leftstyle + "%", width: "150px", height: "210px", top: "20px"}}/>
         </div>)
         leftstyle = leftstyle + 12
       }
@@ -98,13 +98,14 @@ class Gameplay extends React.Component {
     let backToLobby = results ? <button onClick={this.props.backToLobby}>Back to Lobby</button> : null
     return (
       <div className="Gameplay">
-        <p>You have joined {message} game </p>
+        <h1 style={{color: "white"}}>Five-Card Stud</h1><br/>
+        <p style={{color: "white"}}>You have joined {message} game </p>
         <button onClick={this.startGame}>Start Game!</button> <br/>
-        <div className="CardContainer" style={{width: 100 + "%", height: 500 + "px"}}>
+        <div className="CardContainer" style={{width: "100%", height: "250px"}}>
           {cards}
         </div>
         { results }
-        <div>
+        <div style={{position: "absolute", left: "37.5%", width: "100%"}}>
           <Player player={this.props.player} playerInfo={this.state.playerInfo} started={this.state.started} game={this.props.game} whoseturn={this.state.whoseturn} maxbet={this.state.maxbet}/>
         </div>
         <div className="judgeGameButton">

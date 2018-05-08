@@ -45,25 +45,27 @@ class Lobby extends React.Component {
     // console.log(this.state.openGames)
     let games = this.state.openGames.map(game=>{
       return (
-        <li>
-          <Game owner={game.owner} joinGame={this.props.joinGame} id={game.match.id} openSlots={game.openSlots}/>
-        </li>
+        <Game owner={game.owner} joinGame={this.props.joinGame} id={game.match.id} openSlots={game.openSlots}/>
       )
     })
 
     return (
-      <div className="lobby">
-        <ul className="openGames">
-          {games}
-        </ul>
-        <button onClick={this.newGame}>Open new game</button>
+      <div className="lobby" style={{position: "absolute", top: "5%", width: "100%", height: "100%"}}>
+        <h1 style={{color: "white"}}>Welcome to the Game Lobby</h1>
+        <h3 style={{color: "white"}}>Choose an open game to join, or open your own</h3>
+        <button onClick={this.newGame}>Open new game</button><br/><br/>
+        <div class="ui cards">
+          <div class="ui grid container">
+            {games}
+          </div>
+        </div>
       </div>
     )
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.interval)
   }
 }
 
 export default Lobby
+
+// <ul className="openGames">
+// {games}
+// </ul>

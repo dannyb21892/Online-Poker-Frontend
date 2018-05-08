@@ -85,9 +85,10 @@ class App extends Component {
     } else {
       show = <Login username={this.state.username} usernameChange={this.usernameChange} loginSubmit={this.loginSubmit} />
     }
+    let id = this.state.inGame ? "inGameApp" : "App"
 
     return (
-      <div className="App">
+      <div className="App" id={id}>
         {show}
       </div>
     );
