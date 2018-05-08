@@ -48,7 +48,7 @@ class GameResultss extends React.Component {
     return(
       <div className="GameResultss">
         {this.results()}
-        <button onClick={this.props.playAgain}>Play Again?</button>
+        <button className="btn btn-primary btn-lg" onClick={this.props.playAgain}>Play Again?</button>
       </div>
     )//return
   }//render

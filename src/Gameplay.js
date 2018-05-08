@@ -76,7 +76,7 @@ class Gameplay extends React.Component {
   // let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
   judgeGameButton = ()=>{
     let button = null
-    if(this.state.playerCards.length === 5){button = <button onClick={this.judgeGame}>Judge Game</button> }
+    if(this.state.playerCards.length === 5){button = <button className="btn btn-primary btn-lg" onClick={this.judgeGame}>Judge Game</button> }
     if(this.state.judgeGame){button = null}
     return button
   }

@@ -4,8 +4,8 @@ const Login = (props) => {
   return (
     <div className="login">
       <form onSubmit={props.loginSubmit}>
-        <input type="text" value={props.username} placeholder="username" onChange={props.setUsername}></input>
-        <input type="submit" />
+        <input className=" form-control-lg" type="text" value={props.username} placeholder="Enter Username" onChange={props.setUsername}></input>
+        <input className="btn btn-primary btn-lg" type="submit" />
       </form>
     </div>
   )
