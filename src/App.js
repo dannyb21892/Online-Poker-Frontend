@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from "./Login"
-import Lobby from "./Lobby"
+// import Lobby from "./Lobby"
 import Gameplay from "./Gameplay"
 import './App.css';
 
@@ -56,7 +56,26 @@ class App extends Component {
       whichGame: {gameId: game_id, owner: owner}
     },()=>{console.log("inside changeState");console.log(this.state);})
   }
+////////////////////////////////////////////////////////////////////////////////
+newGame = () => {
+  fetch("http://localhost:3000/api/v1/matches",{
+    method: "POST",
+    headers: {
+     'Content-type':'application/json'
+    },
+    body: JSON.stringify({owner: this.state.username})
+  })
+  .then(response=>response.json())
+  // .then(json=>console.log(json))
+  // .then(json=>this.setState({
+  //     openGames: [...this.state.openGames, json["newOpenGame"]]
+  //   }, () => this.props.joinGame(json["newOpenGame"]["match"]["id"], json["newOpenGame"]["owner"]))
+  // )
+  .then(json=>this.joinGame(json["newOpenGame"]["match"]["id"], json["newOpenGame"]["owner"] ))
+  //some code that tells App to stop rendering Lobby and render created game
+}
 
+////////////////////////////////////////////////////////////////////////////////
 
 
   render() {
@@ -69,7 +88,9 @@ class App extends Component {
         show = <Gameplay game={this.state.whichGame} player={this.state.username}/>
       } else {
         // show = <Lobby username={this.state.username} joinGame={this.joinGame}/>
-        show = <Lobby username={this.state.username} joinGame={this.joinGame}/>  //remove joinGame
+        // show = <Lobby username={this.state.username} joinGame={this.joinGame}/>  //remove joinGame
+        show = <button onClick={this.newGame}>Open new game</button>
+
       }
 
     } else {
