@@ -72,6 +72,13 @@ class Gameplay extends React.Component {
     clearInterval(this.state.interval)
   }
 
+  // let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
+  judgeGameButton = ()=>{
+    let button = null
+    if(this.state.playerCards.length === 5){button = <button onClick={this.judgeGame}>Judge Game</button> }
+    return button
+  }
+
   render () {
     console.log(this.state.judged, this.state.judgeGame)
     let results = (this.state.judged && this.state.judgeGame) ? <GameResultss judgeGame={this.state.judgeGame} username={this.props.player} clear={this.clearStateInterval}/> : null
@@ -85,7 +92,7 @@ class Gameplay extends React.Component {
       }
     )
     let message = this.props.player === this.props.game.owner ? "your own" : (this.props.game.owner + "s")
-    let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
+    // let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
     return (
       <div className="Gameplay">
         <p>You have joined {message} game </p>
@@ -98,7 +105,7 @@ class Gameplay extends React.Component {
         </div>
         <div className="judgeGameButton">
         { results }
-        {judgeGameButton}
+        {this.judgeGameButton()}
         </div>
       </div> //query backend for game updates with this.props.game.gameId
     )
