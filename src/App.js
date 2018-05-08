@@ -7,10 +7,13 @@ import './App.css';
 class App extends Component {
   state = {
     username: "",
+    user_id: null,
+    user_money: null,
     loggedIn: false,
     inGame: false,
     whichGame: {gameId: null, owner: null}
   }
+
 
   setUsername = (e) => {                                                        //set username
     this.setState({
@@ -28,7 +31,7 @@ class App extends Component {
       body: JSON.stringify({username: this.state.username})
     })
     .then(response=>response.json())
-    .then(json=>this.setState({      loggedIn: json["logged_in"]    })
+    .then(json=>this.setState({      loggedIn: json["logged_in"], user_id: json["player_id"]    })
       // ,()=>{{console.log("insidecallback");this.newGame}}
     )
     // .then(json=>console.log(json))
@@ -55,7 +58,8 @@ class App extends Component {
   changeState = (json, game_id, owner) => {
     this.setState({
       inGame: json.response,
-      whichGame: {gameId: game_id, owner: owner}
+      whichGame: {gameId: game_id, owner: owner},
+      user_money: json.money
     },()=>{console.log("inside changeState");console.log(this.state);})
   }
 ////////////////////////////////////////////////////////////////////////////////
