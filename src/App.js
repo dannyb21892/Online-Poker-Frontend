@@ -28,7 +28,9 @@ class App extends Component {
       body: JSON.stringify({username: this.state.username})
     })
     .then(response=>response.json())
-    .then(json=>this.setState({      loggedIn: json["logged_in"]    }))
+    .then(json=>this.setState({      loggedIn: json["logged_in"]    })
+      ,()=>{{console.log("insidecallback");this.newGame}}
+    )
     // .then(json=>console.log(json))
   }
 
@@ -83,14 +85,21 @@ newGame = () => {
     if (this.state.loggedIn) {
       // show = <div>logged in</div>
       //START GAME SOMEHOW
-
+////////////////
+// THE BYPASS BLOCK
+  // {this.newGame()}
+  // show = <Gameplay game={this.state.whichGame} player={this.state.username}/>
+////////////////
+//uncomment below if bypass doesnt work
       if (this.state.inGame) {
         show = <Gameplay game={this.state.whichGame} player={this.state.username}/>
       } else {
         // show = <Lobby username={this.state.username} joinGame={this.joinGame}/>
         // show = <Lobby username={this.state.username} joinGame={this.joinGame}/>  //remove joinGame
-        show = <button onClick={this.newGame}>Open new game</button>
-
+///////////
+        // show = <button onClick={this.newGame}>Open new game</button>
+        {this.newGame()}
+        show = <h1>LOADING</h1>
       }
 
     } else {
