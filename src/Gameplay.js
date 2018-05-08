@@ -93,12 +93,11 @@ class Gameplay extends React.Component {
         leftstyle = leftstyle + 12
       }
     )
-    let message = this.props.player === this.props.game.owner ? "your own" : (this.props.game.owner + "s")
+    // let message = this.props.player === this.props.game.owner ? "your own" : (this.props.game.owner + "s")
     // let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
     return (
       <div className="Gameplay">
         <StartGame startGame={this.startGame}/>
-        <p>You have joined {message} game </p>
 
         <div className="CardContainer" style={{width: 100 + "%", height: 200 + "px"}}>
           {cards}
