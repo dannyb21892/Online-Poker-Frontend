@@ -27,18 +27,12 @@ class Gameplay extends React.Component {
     }))
   }
 
-  // stateChange = (key, val) => {
-  //   this.setState({
-  //     [key]: val
-  //   })
-  // }
 
   componentDidMount() {
     this.setState({interval:  setInterval(()=>{
       fetch(`http://localhost:3000/api/v1/matches/${this.props.game.gameId}`)
       .then(resp=>resp.json())
       .then(json=>{
-        // console.log(json)                                                    //////////readd if need to see the continous console.logs for some data
         let cards = json.data.filter(d => d.player === this.props.player)
         this.setState({
           playerCards: cards,
@@ -61,7 +55,6 @@ class Gameplay extends React.Component {
       })
     })
     .then(resp=>resp.json())
-    // .then(json=>console.log(json))
     .then(json=>this.setState({
       judgeGame: json.judgement,
       judged: json.judged,
@@ -73,7 +66,6 @@ class Gameplay extends React.Component {
     clearInterval(this.state.interval)
   }
 
-  // let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
   judgeGameButton = ()=>{
     let button = null
     if(this.state.playerCards.length === 5){button = <button className="btn btn-primary btn-lg" onClick={this.judgeGame}>Judge Game</button> }
@@ -93,23 +85,18 @@ class Gameplay extends React.Component {
         leftstyle = leftstyle + 12
       }
     )
-    // let message = this.props.player === this.props.game.owner ? "your own" : (this.props.game.owner + "s")
-    // let judgeGameButton = this.state.playerCards.length === 5 ? <button onClick={this.judgeGame} >Judge Game</button> : null
+
     return (
       <div className="Gameplay">
         <StartGame startGame={this.startGame} judgeGame={this.state.judgeGame} started={this.state.started}/>
-
         <div className="CardContainer" style={{width: 100 + "%", height: 200 + "px"}}>
           {cards}
         </div>
-        <div>
-
-        </div>
         <div className="judgeGameButton">
-        { results }
-        {this.judgeGameButton()}
+          { results }
+          {this.judgeGameButton()}
         </div>
-      </div> //query backend for game updates with this.props.game.gameId
+      </div>
     )
   }
 }
