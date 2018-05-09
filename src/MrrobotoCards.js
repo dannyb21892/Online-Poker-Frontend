@@ -1,5 +1,4 @@
 import React from "react"
-// import MrrobotoCards from './MrrobotoCards'
 class MrrobotoCards extends React.Component {
 
   render(){
@@ -23,12 +22,6 @@ class MrrobotoCards extends React.Component {
       </div>
     )
   }
-
-
 } //class
 
 export default MrrobotoCards
-
-// <div className="CardContainer" style={{width: 100 + "%", height: 200 + "px"}}>
-//   {cards}
-// </div>
