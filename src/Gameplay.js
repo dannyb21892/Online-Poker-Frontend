@@ -1,6 +1,7 @@
 import React from "react"
 import GameResultss from './GameResultss.js'
 import StartGame from './StartGame'
+let url = "http://vsparrow-single-poker-api.herokuapp.com"
 
 class Gameplay extends React.Component {
   state = {
@@ -11,8 +12,10 @@ class Gameplay extends React.Component {
     judgeGame: false
   }
 
+
+
   startGame = () => {
-    fetch(`http://localhost:3000/api/v1/matches/${this.props.game.gameId}`,{
+    fetch(`${url}/api/v1/matches/${this.props.game.gameId}`,{
       method: "PATCH",
       headers: {
        'Content-type':'application/json'
@@ -30,7 +33,7 @@ class Gameplay extends React.Component {
 
   componentDidMount() {
     this.setState({interval:  setInterval(()=>{
-      fetch(`http://localhost:3000/api/v1/matches/${this.props.game.gameId}`)
+      fetch(`${url}/api/v1/matches/${this.props.game.gameId}`)
       .then(resp=>resp.json())
       .then(json=>{
         let cards = json.data.filter(d => d.player === this.props.player)
@@ -45,7 +48,7 @@ class Gameplay extends React.Component {
   }
 
   judgeGame = () => {
-    fetch(`http://localhost:3000/api/v1/matches/${this.props.game.gameId}`,{
+    fetch(`${url}/api/v1/matches/${this.props.game.gameId}`,{
       method: "PATCH",
       headers: {
        'Content-type':'application/json'

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Login from "./Login"
 import Gameplay from "./Gameplay"
 import './App.css';
+let url = "http://vsparrow-single-poker-api.herokuapp.com"
 
 class App extends Component {
   state = {
@@ -22,7 +23,7 @@ class App extends Component {
 
   loginSubmit = (e) => {                                                        //login user
     e.preventDefault()
-    fetch("http://localhost:3000/api/v1/players",{
+    fetch(url + "/api/v1/players",{
       method: "POST",
       headers: {
        'Content-type':'application/json'
@@ -36,7 +37,7 @@ class App extends Component {
 
   joinGame = (game_id, owner) => {                                              //start a game
     console.log(game_id, owner)
-    fetch(`http://localhost:3000/api/v1/matches/${game_id}`,{
+    fetch(`${url}/api/v1/matches/${game_id}`,{
       method: "PATCH",
       headers: {
        'Content-type':'application/json'
@@ -61,7 +62,7 @@ class App extends Component {
   }
 
   newGame = () => {
-    fetch("http://localhost:3000/api/v1/matches",{
+    fetch(url + "/api/v1/matches",{
       method: "POST",
       headers: {
        'Content-type':'application/json'
